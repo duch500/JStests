@@ -3,10 +3,10 @@
 let humanPoints = 0;
 let botPoints = 0;
 
-function getComputerChoice(){
+function getComputerChoice() {
     let compChoice;
     let fstchoice = Math.random();
-    console.log(fstchoice);
+    // alert(fstchoice);
     if (fstchoice < 1/3) {
         compChoice = "Rock";
     } else if (fstchoice < 2/3) {
@@ -15,80 +15,67 @@ function getComputerChoice(){
         compChoice = "Paper";
     }
     return compChoice;
-
-
 }
 
-function getHumanChoice(){
-
-    let hmnChoice = prompt("What are you choosing? (Scissors, Rock,Paper):");
+function getHumanChoice() {
+    let hmnChoice = prompt("What are you choosing? (Scissors, Rock, Paper):");
     return hmnChoice;
-    
-
 }
 
-function winCheck(hmnChoice, compChoice, botPoints, humanPoints){
-
-    if (hmnChoice == compChoice){
-        console.log("Remis!");
-    }
-    else if(hmnChoice == "Rock" || hmnChoice =="rock" && compChoice == "Scissors"){
-        console.log("Human won!");
+function winCheck(hmnChoice, compChoice) {
+    if (hmnChoice.toLowerCase() === compChoice.toLowerCase()) {
+        alert("Remis podczas tej rundy!");
+    } else if (
+        (hmnChoice.toLowerCase() === "rock" && compChoice.toLowerCase() === "scissors") ||
+        (hmnChoice.toLowerCase() === "paper" && compChoice.toLowerCase() === "rock") ||
+        (hmnChoice.toLowerCase() === "scissors" && compChoice.toLowerCase() === "paper")
+    ) {
+        alert("Human won!");
         humanPoints++;
-    }
-
-    else if(hmnChoice == "Rock" || hmnChoice =="rock" && compChoice == "Paper"){
-        console.log("Bot won!");
+    } else {
+        alert("Bot won!");
         botPoints++;
     }
-
-    else if(hmnChoice == "Paper" || hmnChoice =="paper" && compChoice == "Rock"){
-        console.log("Human won!");
-        humanPoints++;
-    }
-
-    else if(hmnChoice == "Paper" || hmnChoice =="paper" && compChoice == "Scissors"){
-        console.log("Bot won!");
-        botPoints++;
-    }
-
-    else if(hmnChoice == "Scissors" || hmnChoice =="scissors" && compChoice == "Paper"){
-        console.log("Human won!");
-        humanPoints++;
-    }
-    else if(hmnChoice == "Scissors" || hmnChoice =="scissors" && compChoice == "Rock"){
-        console.log("Bot won!");
-        botPoints++;
-    }
-    else{
-        console.log("Something went terribly wrong...");
-    }
-
-
 }
 
-function winCheckTotal(){
-
-    if(botPoints > humanPoints){
-        console.log(`Bot won! Stats: ${botPoints}:${humanPoints}!`);
-    }
-    else if(botPoints < humanPoints){
-        console.log(`Human won! Stats: ${humanPoints}:${botPoints}!`);
-    }
-    else{
-        console.log("DRAW");
+function winCheckTotal() {
+    if (botPoints > humanPoints) {
+        alert(`Bot won! Stats: ${botPoints}:${humanPoints}!`);
+    } else if (botPoints < humanPoints) {
+        alert(`Human won! Stats: ${humanPoints}:${botPoints}!`);
+    } else {
+        alert(`REMIS! Stats: ${humanPoints}:${botPoints}!`);
     }
 }
 
 
 function GameCycle() {
-    let compChoice = getComputerChoice();
-    let hmnChoice = getHumanChoice();
-    
-    winCheck(hmnChoice, compChoice, botPoints, humanPoints);
-    console.log(`I picked: ${compChoice}`);
-    console.log(`U picked: ${hmnChoice}`);
-}
 
+    let numberRounds = parseInt(prompt("How many rounds do you want to play? : "));
+
+    if (numberRounds <= 0 || numberRounds > 20){
+        alert("Niedopuszczalna ilość rund!");
+    }
+
+    for (let x = 0; x != numberRounds; x++){
+
+        let compChoice = getComputerChoice();
+        let hmnChoice = getHumanChoice();
+
+
+    
+        winCheck(hmnChoice, compChoice);
+        alert(`I picked: ${compChoice} \n U picked: ${hmnChoice}`);
+    
+
+    }
+
+    let win = winCheckTotal();
+
+    alert(win);
+
+
+    
+}
 
 GameCycle();
