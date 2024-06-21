@@ -6,7 +6,6 @@ let botPoints = 0;
 function getComputerChoice() {
     let compChoice;
     let fstchoice = Math.random();
-    // alert(fstchoice);
     if (fstchoice < 1/3) {
         compChoice = "Rock";
     } else if (fstchoice < 2/3) {
@@ -18,64 +17,57 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    let hmnChoice = prompt("What are you choosing? (Scissors, Rock, Paper):");
+    let hmnChoice = prompt("What are you choosing? (Scissors, Rock, Paper): ");
     return hmnChoice;
 }
 
 function winCheck(hmnChoice, compChoice) {
     if (hmnChoice.toLowerCase() === compChoice.toLowerCase()) {
-        alert("Remis podczas tej rundy!");
+        alert("DRAW this time!");
     } else if (
         (hmnChoice.toLowerCase() === "rock" && compChoice.toLowerCase() === "scissors") ||
         (hmnChoice.toLowerCase() === "paper" && compChoice.toLowerCase() === "rock") ||
         (hmnChoice.toLowerCase() === "scissors" && compChoice.toLowerCase() === "paper")
     ) {
-        alert("Human won!");
+        alert(`Human won! \n \nI picked: ${compChoice} \nYou picked: ${hmnChoice}`);
         humanPoints++;
     } else {
-        alert("Bot won!");
+        alert(`Bot won! \n \nI picked: ${compChoice} \nYou picked: ${hmnChoice}`);
         botPoints++;
     }
 }
 
 function winCheckTotal() {
     if (botPoints > humanPoints) {
-        alert(`Bot won! Stats: ${botPoints}:${humanPoints}!`);
+        return `Bot won! Stats: ${botPoints}:${humanPoints}!`;
     } else if (botPoints < humanPoints) {
-        alert(`Human won! Stats: ${humanPoints}:${botPoints}!`);
+        return `Human won! Stats: ${humanPoints}:${botPoints}!`;
     } else {
-        alert(`REMIS! Stats: ${humanPoints}:${botPoints}!`);
+        return `DRAW! Stats: ${humanPoints}:${botPoints}!`;
     }
 }
 
-
 function GameCycle() {
+    let numberRounds;
+    while (true) {
+        numberRounds = parseInt(prompt("How many rounds do you want to play? : "));
 
-    let numberRounds = parseInt(prompt("How many rounds do you want to play? : "));
-
-    if (numberRounds <= 0 || numberRounds > 20){
-        alert("Niedopuszczalna ilość rund!");
+        // Sprawdzenie czy numberRounds jest poprawną liczbą
+        if (!isNaN(numberRounds) && numberRounds > 0 && numberRounds <= 20) {
+            break; // wyjście z pętli, gdy liczba rund jest poprawna
+        } else {
+            alert("INVALID AMOUNT OF ROUNDS!");
+        }
     }
 
-    for (let x = 0; x != numberRounds; x++){
-
+    for (let x = 0; x < numberRounds; x++) {
         let compChoice = getComputerChoice();
         let hmnChoice = getHumanChoice();
-
-
-    
         winCheck(hmnChoice, compChoice);
-        alert(`I picked: ${compChoice} \n U picked: ${hmnChoice}`);
-    
-
     }
 
     let win = winCheckTotal();
-
     alert(win);
-
-
-    
 }
 
 GameCycle();
