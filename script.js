@@ -17,7 +17,22 @@ function getComputerChoice() {
 }
 
 function getHumanChoice() {
-    let hmnChoice = prompt("What are you choosing? (Scissors, Rock, Paper): ");
+    let hmnChoice;
+    while (true){
+
+        hmnChoice = prompt("What are you choosing? (Scissors, Rock, Paper): ");
+
+        if (hmnChoice.toLowerCase() !== "scissors" && hmnChoice.toLowerCase() !== "rock" && hmnChoice.toLowerCase() !== "paper" )
+            {
+                alert("INVALID INPUT - please choose correct option!");
+                alert(`Podales ${hmnChoice.toLowerCase()}`);
+            }
+        else{
+            break;
+        }
+
+    }
+    hmnChoice = hmnChoice.toLowerCase();
     return hmnChoice;
 }
 
